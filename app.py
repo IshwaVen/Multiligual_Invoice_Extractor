@@ -23,9 +23,7 @@ st.set_page_config(page_title="Invoice Extractor", page_icon="🧾", layout="cen
 # --- Constants ---
 # You can change the model here if you wish to use a different one.
 # For this task, 'gemini-pro-vision' is required as it handles images.
-GEMINI_MODEL = "gemini-pro-vision" 
-# You create an instance of the specific model you need.
-model = genai.GenerativeModel('gemini-pro-vision')
+GEMINI_MODEL = "gemini-1.5-flash" 
 # This is the actual call that sends your data to Google's servers.
 # response = model.generate_content([input_prompt, image_list])
 genai.configure(api_key=api_key)
@@ -80,18 +78,18 @@ def get_gemini_response(input_prompt, image_list, api_key, model_name):
 st.title("🧾 Invoice Data Extractor")
 st.write("Upload an invoice (Image or PDF), and the AI will extract key details and line items.")
 
-# --- API Key Input in Sidebar ---
-with st.sidebar:
-    st.header("Configuration")
-    # --- Where to mention the API Key ---
-    # The user enters the API key here. It is stored in the 'api_key' variable.
-    api_key = st.text_input("Enter your Google Gemini API Key", type="password", help="Get your API key from Google AI Studio.")
+# # --- API Key Input in Sidebar ---
+# with st.sidebar:
+#     st.header("Configuration")
+#     # --- Where to mention the API Key ---
+#     # The user enters the API key here. It is stored in the 'api_key' variable.
+#     # api_key = st.text_input("Enter your Google Gemini API Key", type="password", help="Get your API key from Google AI Studio.")
     
-    if not api_key:
-        st.warning("Please enter your API key to proceed.")
-        st.stop()
-    st.markdown("---")
-    st.info("Get your free Gemini API key from [Google AI Studio](https://aistudio.google.com/).")
+#     if not api_key:
+#         st.warning("Please enter your API key to proceed.")
+#         st.stop()
+#     st.markdown("---")
+#     st.info("Get your free Gemini API key from [Google AI Studio](https://aistudio.google.com/).")
 
 
 # --- File Uploader for both PDF and Images ---
