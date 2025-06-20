@@ -14,7 +14,7 @@ load_dotenv()
 
 api_key = os.getenv("api_key")
 
-print(f'API key: {api_key}')
+# print(f'API key: {api_key}')
 
 
 # --- Configuration ---
@@ -27,7 +27,7 @@ GEMINI_MODEL = "gemini-pro-vision"
 # You create an instance of the specific model you need.
 model = genai.GenerativeModel('gemini-pro-vision')
 # This is the actual call that sends your data to Google's servers.
-response = model.generate_content([input_prompt, image_list])
+# response = model.generate_content([input_prompt, image_list])
 genai.configure(api_key=api_key)
 
 # --- Helper Functions ---
