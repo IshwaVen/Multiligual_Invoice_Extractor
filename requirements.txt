@@ -3,7 +3,6 @@ google-generativeai
 pandas
 Pillow
 pdf2image
-os
 dotenv
 warnings
 PyMuPDF
