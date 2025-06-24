@@ -121,15 +121,15 @@ For each line item, extract:
 - Line Total
 
 Provide the final, fully translated output in a single, structured JSON format.
-If a field is not found, return "N/A" for its value.
+If a field is not found, must return "N/A" for its value. don't make up an answer. 
 
 Final JSON structure required:
 {
   "invoice_id": "value",
   "invoice_date": "value",
   "due_date": "value",
-  "biller_name": "value",
-  "biller_address": "value",
+  "seller_name": "value",
+  "seller_address": "value",
   "customer_name": "value",
   "customer_address": "value",
   "subtotal": "value",
@@ -140,7 +140,6 @@ Final JSON structure required:
   ]
 }
 """
-
 
 if st.button("Extract & Verify Information", type="primary"):
     with st.spinner("Analyzing invoice, translating, and preparing verification view..."):
@@ -162,7 +161,7 @@ if st.button("Extract & Verify Information", type="primary"):
                 # }
                 # st.json(token_info)
 
-                st.markdown("---") # Visual separator
+                
 
                 # --- Side-by-Side Verification UI ---
                 view_col, data_col = st.columns(2, gap="large")
@@ -176,9 +175,9 @@ if st.button("Extract & Verify Information", type="primary"):
                             options=range(1, len(image_list) + 1),
                             format_func=lambda x: f"Page {x}"
                         )
-                        st.image(image_list[page_num - 1], use_column_width=True)
+                        st.image(image_list[page_num - 1], use_container_width=True)
                     else:
-                        st.image(image_list[0], use_column_width=True)
+                        st.image(image_list[0], use_container_width=True)
                 
                 with data_col:
                     st.subheader("Extracted Data (in English)")
@@ -205,6 +204,17 @@ if st.button("Extract & Verify Information", type="primary"):
                     # Pretty-print the JSON with an indent of 2 spaces
                     pretty_json = json.dumps(invoice_data, indent=2, ensure_ascii=False) # ensure_ascii=False for proper display
                     st.code(pretty_json, language='json')
+
+                st.markdown("---") # Visual separator
+                
+                # --- Display Token Usage Evaluation ---
+                st.subheader("API Usage Evaluation")
+                token_info = {
+                    "Prompt Tokens": f"{usage_metadata.prompt_token_count:,}",
+                    "Completion Tokens": f"{usage_metadata.candidates_token_count:,}",
+                    "Total Tokens Used": f"{usage_metadata.total_token_count:,}"
+                }
+                st.json(token_info)
 
             except json.JSONDecodeError:
                 st.error("Failed to parse the extracted data as JSON. The model may have returned an invalid format.")
