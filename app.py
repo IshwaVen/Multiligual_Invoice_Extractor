@@ -99,7 +99,8 @@ You are an expert multilingual data processor specializing in invoices. Your non
 
 This translation requirement is the most critical part of your task. You must not return any names, addresses, or item descriptions in their original language.
 
-**Crucial Example:** If the invoice shows a customer address as "上海市徐汇区肇嘉浜路798号506室", your JSON output for "customer_address" MUST be the translated and formatted English version, such as "Room 506, No. 798, Zhaojiabang Road, Xuhui District, Shanghai, China". Do not, under any circumstances, return the original Chinese text. Apply this translation logic to all text fields.
+**Crucial Example:** If the invoice shows a customer address as "上海市徐汇区肇嘉浜路798号506室", your JSON output for "customer_address" MUST be the translated and formatted English version, such as "Room 506, No. 798, Zhaojiabang Road, Xuhui District, Shanghai, China". Do not, under any circumstances, return the original Chinese text. Apply this translation logic to all text fields. 
+** If Invoice total amount is not given, you must return N/A. Do not make up an asnwer.
 
 Please extract the following 10 fields, ensuring all text values are translated to English:
 1.  Invoice ID
@@ -150,20 +151,9 @@ if st.button("Extract & Verify Information", type="primary"):
             try:
                 # Parse the JSON response
                 invoice_data = json.loads(response_text)
-                st.success("Invoice data extracted and translated successfully!")
-                
-                # --- Display Token Usage Evaluation ---
-                # st.subheader("API Usage Evaluation")
-                # token_info = {
-                #     "Prompt Tokens": f"{usage_metadata.prompt_token_count:,}",
-                #     "Completion Tokens": f"{usage_metadata.candidates_token_count:,}",
-                #     "Total Tokens Used": f"{usage_metadata.total_token_count:,}"
-                # }
-                # st.json(token_info)
+                st.success("Invoice data extracted and translated successfully!")      
 
-                
-
-                # --- Side-by-Side Verification UI ---
+                # --- Side-by-Side Verification UI - visual Evaluation ---
                 view_col, data_col = st.columns(2, gap="large")
 
                 with view_col:
