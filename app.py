@@ -1,3 +1,9 @@
+"""This Streamlit POC app demonstrates a simple, multilingual invoice extractor using Gemini LMM 
+to perform OCR, translation, and standardized field extraction from uploaded invoices.
+
+Author: Ishwariya
+"""
+
 import streamlit as st
 from PIL import Image
 import google.generativeai as genai
