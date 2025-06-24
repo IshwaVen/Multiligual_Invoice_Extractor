@@ -6,6 +6,7 @@ pdf2image
 os
 dotenv
 warnings
+PyMuPDF
 
-!apt-get install -y poppler-utils
-!pip install pdf2image
+# !apt-get install -y poppler-utils
+# !pip install pdf2image
