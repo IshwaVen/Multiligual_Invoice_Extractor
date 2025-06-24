@@ -6,14 +6,13 @@ import pandas as pd
 from pdf2image import convert_from_bytes # To handle PDF files
 from dotenv import load_dotenv
 import os
-import warnings 
 
+import warnings 
 warnings.filterwarnings("ignore")
 
 # Load environment variables from .env file
 load_dotenv()
 
-# It's recommended to handle the case where the API key might not be set
 api_key = os.getenv("api_key")
 if not api_key:
     st.error("API key not found. Please create a .env file with 'api_key=YOUR_API_KEY'.")
@@ -94,8 +93,7 @@ else:
     image = Image.open(uploaded_file)
     image_list.append(image)
 
-# --- ★★★ UPDATED AND IMPROVED PROMPT DEFINITION ★★★ ---
-# This prompt is more direct and provides a clear example to ensure translation occurs.
+# LMM input prompt: optimize for invoice features extraction, input format of the data, to update output format 
 input_prompt = """
 You are an expert multilingual data processor specializing in invoices. Your non-negotiable task is to extract key information from the invoice and provide ALL textual output in English.
 
@@ -156,13 +154,13 @@ if st.button("Extract & Verify Information", type="primary"):
                 st.success("Invoice data extracted and translated successfully!")
                 
                 # --- Display Token Usage Evaluation ---
-                st.subheader("API Usage Evaluation")
-                token_info = {
-                    "Prompt Tokens": f"{usage_metadata.prompt_token_count:,}",
-                    "Completion Tokens": f"{usage_metadata.candidates_token_count:,}",
-                    "Total Tokens Used": f"{usage_metadata.total_token_count:,}"
-                }
-                st.json(token_info)
+                # st.subheader("API Usage Evaluation")
+                # token_info = {
+                #     "Prompt Tokens": f"{usage_metadata.prompt_token_count:,}",
+                #     "Completion Tokens": f"{usage_metadata.candidates_token_count:,}",
+                #     "Total Tokens Used": f"{usage_metadata.total_token_count:,}"
+                # }
+                # st.json(token_info)
 
                 st.markdown("---") # Visual separator
 
@@ -213,4 +211,4 @@ if st.button("Extract & Verify Information", type="primary"):
                 st.text_area("Raw AI Response:", response_text, height=300)
             except Exception as e:
                 st.error(f"An unexpected error occurred while displaying data: {e}")
-                st.text_area("Raw AI Response:", response_text, height=300)
+            st.text_area("Raw AI Response:", response_text, height=300)
